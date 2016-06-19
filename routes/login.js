@@ -1,26 +1,49 @@
 var express = require('express');
 var router = express.Router();
-
+var MongoClient = require('mongodb').MongoClient;
 
 /* GET users listing. */
 
-
-
 router.post('/', function(req, res, next) {
-  console.log(req.body);
-  //GO TO DATABASE AND CHECK IF THERES ANY USER
-  var user = {
-    'username' : 'mrolnik',
-    'pl' : 'es'
-  };
+  // Connect to the db
+  MongoClient.connect("mongodb://esperanto:hackyourfuture16@ds023902.mlab.com:23902/esperanto", function(err, db) {
+    if(!err) {
 
-  res.writeHead(200, {
-    'Set-Cookie': 'user=' + user.username + '|' + user.pl
+      db.collection('users').findOne(
+        {
+          username : req.body.username,
+          password : req.body.password
+        },
+        function(err, user) {
+          if(!err) {
+            console.log(user);
+            if(user){
+              res.writeHead(200, {
+                'Set-Cookie': 'user=' + user.username + '|' + user.pref_lang
+              });
+            }else{
+              res.writeHead(404);
+            }
+
+            res.end();
+          }
+      });
+
+
+
+    }else{
+      //NO ACOUNT
+      res.writeHead(500);
+      res.end();
+
+    }
+
   });
-  res.end();
+
 });
 
 router.get('/', function(req, res, next) {
+  if(req.user) res.redirect('/app');
   res.render('login');
 });
 
