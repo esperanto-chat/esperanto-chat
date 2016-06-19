@@ -15,9 +15,11 @@ module.exports = function(io) {
     var googleTranslate = require('google-translate')('AIzaSyCVhSrIAQisLMFA96YmSDEdqsPBuzsEY9Y');
 
     /* GET home page.*/
-    router.get('/', function(req, res, next) {
+    router.get('/user/:username', function(req, res, next) {
+
+      var user = req.params.username;
       googleTranslate.getSupportedLanguages('es', function(err, langs){
-        res.render('index', {langs : langs});
+        res.render('index', {langs : langs, user : user});
       })
     });
 
@@ -25,13 +27,12 @@ module.exports = function(io) {
       console.log('a user connected');
       socket.broadcast.emit('hi');
 
-      socket.on('chat message', function(data){
+      socket.on('new_message', function(data){
         console.log('message: ' + data.msg);
         googleTranslate.translate(data.msg, data.lang || 'es', function(err, translation) {
           console.log(translation.translatedText);
 
-          io.emit('chat message', translation.translatedText)
-          // =>  Mi nombre es Brandon
+          io.emit('new_message.' + data.authorId, translation.translatedText)
         });
       });
 
