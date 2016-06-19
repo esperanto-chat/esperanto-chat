@@ -1,11 +1,19 @@
 var getmessagesforroom = function(id, lang){
-  db.messages.find({
-    room_id: id,
-    pref_lang: lang
-  })
+  var results = db.messages.find({
+    room_id: parseInt(id)
+  });
+  messages = [];
+  for (i = 0; i < results.length(); i++){
+    result = results[i];
+    text = result.translations[lang];
+    sender = result.sender;
+    messages[i] = {
+      "text": text,
+      "sender" : sender
+    }
+    // messages["text"] = text;
+    // messages["sender"] = sender;
+
+  }
+  return messages;
 }
-pref_lang = "translations."+lang;
-db.messages.find({
-  room_id: 1,
-  pref_lang: {'$exists' : true}
-})
