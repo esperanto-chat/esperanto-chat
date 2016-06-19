@@ -1,52 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>main</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../public/stylesheets/esperanto.css">
-</head>
-
-<body>
-
-<div class="container-fluid">
-
-    <div class="row main-window">
-
-        <div class="col-lg-4 contacts">
-
-            <div id="users-info">
-                <p id="title-contacts">CONTACTS</p>
-                <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Esperanto</title>
+    <!-- BOOTSTRAP CORE STYLE CSS -->
+    <link href="../public/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="../public/stylesheets/esperanto.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="../public/js/esperanto.js"></script>
+  </head>
+  <body style="font-family:Verdana">
+    <div class="container">
+      <div class="row " style="padding-top:40px;">
+        <h3 class="text-center">ESPERANTO</h3>
+        <br /><br />
+        <div class="col-md-8">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Conversation with Moshe
             </div>
+            <div class="panel-body">
+              <ul class="media-list">                    
+
+                <li class="media">
+
+                  <div class="media-body">
+
+                    <div class="media">
+                      <div class="media-body" >
+                        Donec sit amet ligula enim. Duis vel condimentum massa.
+
+                        Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim. 
+                        Duis vel condimentum massa.
+                        Donec sit amet ligula enim. Duis vel condimentum massa.
+                        <br />
+                        <small class="text-muted">Jhon Rexa | 23rd June at 5:00pm</small>
+                        <hr />
+                      </div>
+                    </div>
+
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Enter Message" />
+                <span class="input-group-btn">
+                  <button class="btn btn-info" type="button">SEND</button>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="col-lg-8 chat-box">
-            <div class="row" style="height:80%">
-                <div id="board col-lg-12">
-
-                </div>
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              Conversations
             </div>
-            <div class="row" style="padding:0;">
-                <textarea class="col-lg-10" rows="4" cols="50"> </textarea>
-                <button></button>
+            <div class="panel-body">
+              <ul class="media-list">
+
+                <li class="media conversation">
+                  <div class="media-body">
+                    <div class="media">
+                      <a class="pull-left" href="#">
+                        <img class="media-object img-circle" style="max-height:40px;" src="../public/assets/default-icon.png" />
+                      </a>
+                      <div class="media-body" >
+                        <h5>Shlomo</h5>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="media conversation">
+                  <div class="media-body">
+                    <div class="media">
+                      <a class="pull-left" href="#">
+                        <img class="media-object img-circle" style="max-height:40px;" src="../public/assets/default-icon.png" />
+                      </a>
+                      <div class="media-body" >
+                        <h5>Micha</h5>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="media conversation">
+                  <div class="media-body">
+                    <div class="media">
+                      <a class="pull-left" href="#">
+                        <img class="media-object img-circle" style="max-height:40px;" src="../public/assets/default-icon.png" />
+                      </a>
+                      <div class="media-body" >
+                        <h5>Hilly</h5>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
             </div>
+          </div>
         </div>
-
+      </div>
     </div>
-
-</div>
-</body>
+  </body>
 </html>
