@@ -16,16 +16,18 @@ module.exports = function(io) {
 
     /* GET home page.*/
     router.get('/', function(req, res, next) {
-      res.render('index');
+      googleTranslate.getSupportedLanguages('es', function(err, langs){
+        res.render('index', {langs : langs});
+      })
     });
 
     io.on('connection', function(socket) {
       console.log('a user connected');
       socket.broadcast.emit('hi');
 
-      socket.on('chat message', function(msg){
-        console.log('message: ' + msg);
-        googleTranslate.translate(msg, 'es', function(err, translation) {
+      socket.on('chat message', function(data){
+        console.log('message: ' + data.msg);
+        googleTranslate.translate(data.msg, data.lang || 'es', function(err, translation) {
           console.log(translation.translatedText);
 
           io.emit('chat message', translation.translatedText)
