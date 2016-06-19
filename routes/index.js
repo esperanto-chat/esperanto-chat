@@ -15,11 +15,10 @@ module.exports = function(io) {
     var googleTranslate = require('google-translate')('AIzaSyCVhSrIAQisLMFA96YmSDEdqsPBuzsEY9Y');
 
     /* GET home page.*/
-    router.get('/user/:username', function(req, res, next) {
-
-      var user = req.params.username;
+    router.get('/', function(req, res, next) {
+      console.log(req.user)
       googleTranslate.getSupportedLanguages('es', function(err, langs){
-        res.render('index', {langs : langs, user : user});
+        res.render('index', {langs : langs, user : req.user});
       })
     });
 

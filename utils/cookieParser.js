@@ -7,7 +7,7 @@ module.exports = function (request) {
         list[parts.shift().trim()] = decodeURI(parts.join('='));
     });
 
-    console.log(list);
+    console.log(Object.keys(JSON.parse(JSON.stringify(list.user))));
 
     return list;
 };

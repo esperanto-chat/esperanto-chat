@@ -5,7 +5,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var cookieParser = require('./utils/cookieParser')
 //mongo setup
 var MongoClient = require('mongodb').MongoClient;
 
@@ -18,6 +17,7 @@ var io           = socket_io();
 app.io           = io;
 
 var routes = require('./routes/index')(io);
+var login = require('./routes/login');
 var users = require('./routes/users');
 
 // view engine setup
@@ -35,15 +35,40 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+function getUser(request) {
+    var user,
+        rc = request.headers.cookie;
 
-app.use(function (req, res, next) {
-    console.log(cookieParser(req));
-  next();
+    rc && rc.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        if(parts.shift().trim() == 'user'){
+          var userOpts = decodeURI(parts.join('='));
+          user = {
+            'username' : userOpts.split('|')[0],
+            'pl'       : userOpts.split('|')[1]
+          };
+        }
+    });
+
+    return user;
+}
+
+app.use('/app', function (req, res, next) {
+  var user = getUser(req);
+  if(user){
+    req.user = user;
+    next();
+  }else{
+    res.redirect('/login');
+  }
+
 });
-app.use('/', routes);
-app.use('/users', users);
+
+app.use('/app', routes);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
