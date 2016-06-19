@@ -1,0 +1,100 @@
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.main-window {
+    padding-top: 40px;
+}
+
+.row {
+    margin-right: 35px;
+    margin-left: 106px;
+}
+.chat-box {
+    height: 90vh;
+    width: 64%;
+    float: right;
+    background-color: #e0e4cc;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.contacts {
+    height: 90vh;
+    width: 36%;
+    float: left;
+    background-color: #a7dbdb;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+#title-contact-box {
+    display: inline-block;
+    background-color: azure;
+    height: 30vh;
+    border-bottom-color: black;
+}
+
+#title-contacts {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#users-info {
+    display: inline-block;
+    background-color: azure;
+    height: 70vh;
+
+}
+#users-info {
+    display: inline-block;
+    background-color: #a7dbdb;
+    width: 100%;
+    height: 100%;
+}
+
+.list-group-item {
+    background-color: #a7dbdb;
+    border-bottom-color: #a7dbdb;
+    width: 100%;
+    text-align: left;
+    font-size: 22px;
+    line-height: 4;
+    padding-left: 65px;
+}
+
+li:hover {
+    background-color:whitesmoke;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#board {
+    width: 100%;
+    height: 80%;
+}
+
+textarea {
+
+    /*margin: 10px 13px 13px 10px;*/
+    /*width: 100%;*/
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+}
