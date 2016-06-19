@@ -56,15 +56,13 @@ function getUser(request) {
     return user;
 }
 
-app.use('/app', function (req, res, next) {
+app.use('/', function (req, res, next) {
   var user = getUser(req);
+
   if(user){
     req.user = user;
-    next();
-  }else{
-    res.redirect('/login');
   }
-
+  next();
 });
 
 app.use('/app', routes);

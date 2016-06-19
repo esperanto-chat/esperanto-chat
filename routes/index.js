@@ -16,10 +16,16 @@ module.exports = function(io) {
 
     /* GET home page.*/
     router.get('/', function(req, res, next) {
-      console.log(req.user)
+      
+      if(!req.user) {
+        res.redirect('/login');
+        return;
+      }
+
       googleTranslate.getSupportedLanguages('es', function(err, langs){
         res.render('index', {langs : langs, user : req.user});
       })
+
     });
 
     io.on('connection', function(socket) {

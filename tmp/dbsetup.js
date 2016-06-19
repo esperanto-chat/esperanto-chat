@@ -4,7 +4,8 @@ db.rooms.remove({});
 
 db.users.insert({
   username: "shmag18",
-  pref_lang: "en",
+  password: "123",
+  pref_lang: "en"
 });
 
 db.messages.insert({
