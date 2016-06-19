@@ -16,7 +16,6 @@ router.post('/', function(req, res, next) {
         },
         function(err, user) {
           if(!err) {
-            console.log(user);
             if(user){
               res.writeHead(200, {
                 'Set-Cookie': 'user=' + user.username + '|' + user.pref_lang
@@ -28,8 +27,6 @@ router.post('/', function(req, res, next) {
             res.end();
           }
       });
-
-
 
     }else{
       //NO ACOUNT

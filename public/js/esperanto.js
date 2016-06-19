@@ -8,11 +8,8 @@
 $(document).ready(function() {
 	// alert($('.conversation').first().attr('class'));
 
-    $('.conversation').click(function(e) { 
+    $('.conversation').click(function(e) {
     	$('.active-chat').removeClass('active-chat');
      	$(this).addClass('active-chat');
     });
-
-	$('.conversation').first().click();
-
 });

@@ -3,12 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Login page</title>
+    <link href="css/flat-ui.css" rel="stylesheet">
 </head>
-<body>
-<form action="">
-  <input id="username" type="text" name="name" value="">
-  <input id="pass" type="password" name="pass" value="">
-  <input type="submit" value="Submit">
+<body class="login-screen">
+
+<form class="login-form" action="">
+
+  <div class="form-group">
+  <input id="username" class="form-control login-field" placeholder="Enter your name" type="text" name="name" value="">
+</div>
+  <div class="form-group">
+  <input id="pass" class="form-control login-field" placeholder="Password" type="password" name="pass" value="">
+</div>
+  <input class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">
 </form>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="/js/login.js"></script>
