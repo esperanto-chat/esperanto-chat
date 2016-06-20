@@ -21,6 +21,7 @@ router.get('/:id', function(req, res, next) {
             messages = messages.map((item) => {
               return {
                 text : item.translations[req.user.pl],
+                // source_lang : item.translations[item.source_lang],
                 author: item.sender,
                 date : dateFormat(new Date(parseInt(item.timestamp)), "dddd, mmmm dS, yyyy, h:MM:ss TT")
               };

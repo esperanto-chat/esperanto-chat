@@ -23,7 +23,7 @@ module.exports = function(io) {
 
     /* GET home page.*/
     router.get('/', function(req, res, next) {
-console.log('asdasd')
+      console.log('asdasd')
       if(!req.user) {
         console.log("no user");
         res.redirect('/signup');

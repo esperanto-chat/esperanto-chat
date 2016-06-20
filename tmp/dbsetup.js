@@ -8,43 +8,31 @@ db.users.insert({
   pref_lang: "en"
 });
 
-db.messages.insert({
-  sender: "shmag18",
-  source_lang: "en",
-  translations: {
-    en: "Hello World!",
-    es: "Hola Mundo!"
-  },
-  room_id: 1,
-  timestamp: new Date()
+db.users.insert({
+  username: "mrolnik",
+  password: "123",
+  pref_lang: "es"
 });
 
-db.messages.insert({
-  sender: "shmag18",
-  source_lang: "en",
-  translations: {
-    en: "wheres your butt!",
-    es: "donde es tu kulo!"
-  },
-  room_id: 1,
-  timestamp: new Date()
+db.users.insert({
+  username: "hilly",
+  password: "123",
+  pref_lang: "iw"
 });
 
 db.rooms.insert({
-  id: 1,
   users: [
-    "shmag18"
+    "shmag18", "mrolnik"
   ],
-  languages: []
+  langs: ["en", "es"]
 });
 
 db.rooms.insert({
-  id: 2,
   users: [
     "shmag18",
-    "p1g1n"
+    "hilly"
   ],
-  languages: []
+  langs: ["en", "iw"]
 });
 
 db.users.find();
