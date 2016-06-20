@@ -7,7 +7,6 @@
 
 $(document).ready(function() {
 
-
     ChatConnection.init();
 
     var source   = $("#bubble").html();
@@ -26,8 +25,10 @@ $(document).ready(function() {
         $(this).addClass('active-chat');
       })
       .fail(function(){
-        alert("Couldn't retrieve the data!")
+        alert("Couldn't retrieve the data!");
       });
-
     });
+
+	$('.conversation').first().click();
+
 });
