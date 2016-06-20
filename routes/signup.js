@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
+var googleTranslate = require('google-translate')('AIzaSyCVhSrIAQisLMFA96YmSDEdqsPBuzsEY9Y');
+
 
 /* GET users listing. */
 
@@ -41,7 +43,11 @@ router.post('/', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
   if(req.user) res.redirect('/app');
-  res.render('signup');
+  
+  googleTranslate.getSupportedLanguages('es', function(err, langs){
+        res.render('signup', {langs : langs});
+  })
+  //res.render('signup');
 });
 
 module.exports = router;

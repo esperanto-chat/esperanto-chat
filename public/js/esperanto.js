@@ -17,9 +17,13 @@ $(document).ready(function() {
       var room = $(this),
         roomId = room.data('id'),
         lang = room.data('lang');
+        usr = room.attr('data-usr');
+        $("#conversation-with").html("Conversation with " + usr);
+        console.log(usr);
       if(window.currentRoomId){
         ChatConnection.getConn().emit('leave_room', {roomId:roomId, name:window.user.username});
       }
+
 
       window.currentRoomId = roomId;
       window.currentRoomLang = lang;
