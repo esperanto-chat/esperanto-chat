@@ -54,6 +54,21 @@
     <div class="container">
       <div class="row " style="padding-top:40px;">
       <h1 class="text-center">ESPERANTO</h1>
+      <input type="button" value="switch" id="switch"/>
+      <script>
+        $('#switch').click(function(){
+          display = $(".translated-text").css("display");
+          console.log(display);
+          if(display === "inline"){
+            $(".translated-text").css({"display": "none"});
+            $(".source-language").css({"display": "initial"});
+          }else if(display === "none"){
+            $(".translated-text").css({"display": "initial"});
+            $(".source-language").css({"display": "none"});
+          }
+        });
+
+      </script>
       <br /><br />
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -121,13 +136,14 @@
 
     <script id="bubble" type="text/x-handlebars-template">
       <div class="media-body"  style="float: left;">
-        <span class="translated-language">\{{text}}</span>
-        <span class="source-language">{{sourc-lang}}</span>
+        <span class="translated-text" style="display: initial">\{{text}}</span>
+        <span class="source-language" style="display: none">\{{source_lang}}</span>
         <br />
         <small class="text-muted">\{{author}} | \{{date}}</small>
         <hr />
       </div>
     </script>
+
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js"></script>
