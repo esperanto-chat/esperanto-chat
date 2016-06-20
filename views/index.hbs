@@ -70,7 +70,7 @@
               <form id="message" action="" class="input-group">
                 <input type="text" id="m" class="form-control" placeholder="Enter Message" />
                 <span class="input-group-btn">
-                  <button class="btn btn-info" type="button">SEND</button>
+                  <input class="btn btn-info" type="submit" value="SEND" />
                 </span>
               </form>
             </div>
@@ -81,16 +81,16 @@
             <div class="panel-heading">
               Conversations
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="overflow:hidden;">
               <ul class="media-list">
                 {{#each rooms}}
-                <li class="media conversation" data-id="{{id}}" data-usr="{{name}}">
+                <li class="media conversation" data-id="{{id}}" data-usr="{{name}}" data-lang="{{lang}}">
                   <div class="media-body">
                     <div class="media">
                       <a class="pull-left" href="#">
                         <img class="media-object img-circle" style="max-height:40px;" src="/assets/default-icon.png" />
                       </a>
-                      <div class="media-body" >
+                      <div class="media-body">
                         <h5>{{name}}</h5>
                       </div>
                     </div>
@@ -104,6 +104,7 @@
         </div>
       </div>
     </div>
+    <ul id="notifications" style="position:fixed;display:block;list-style:none;max-width:250px;right: 10px;bottom: 10px;padding: 0;margin: 0;"></ul>
     <script type="text/javascript">
       window.user = {
         'username' : '{{user.username}}',
@@ -112,7 +113,7 @@
     </script>
 
     <script id="bubble" type="text/x-handlebars-template">
-      <div class="media-body" >
+      <div class="media-body"  style="float: left;">
         \{{text}}
         <br />
         <small class="text-muted">\{{author}} | \{{date}}</small>

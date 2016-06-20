@@ -18,6 +18,7 @@ router.get('/:id', function(req, res, next) {
         }).toArray(
         function(err, messages) {
           if(!err) {
+            console.log(messages);
             messages = messages.map((item) => {
               console.log(item)
               console.log(req.user)

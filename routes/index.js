@@ -15,6 +15,7 @@ module.exports = function(io) {
     var MongoClient = require('mongodb').MongoClient;
     var googleTranslate = require('google-translate')('AIzaSyCVhSrIAQisLMFA96YmSDEdqsPBuzsEY9Y');
     var connectedUsers = {};
+    var dateFormat = require('dateformat');
     var people = {};
     var rooms = {};
     var clients = [];
@@ -34,8 +35,8 @@ module.exports = function(io) {
               users: req.user.username
             }).toArray(
             function(err, rooms) {
-              console.log(rooms);
-              var roomsTranslated = translateRooms(rooms, req.user.username);
+              //console.log(rooms);
+              var roomsTranslated = translateRooms(rooms, req.user.username, req.user.pl);
               res.render('index', {rooms : roomsTranslated, user: req.user});
           });
         }
@@ -43,27 +44,72 @@ module.exports = function(io) {
 
     });
 
-    function translateRooms(rooms, username) {
+    function translateRooms(rooms, username, pl) {
       return rooms.map((item) => {
         item.users.splice(item.users.indexOf(username), 1)[0]
+        item.langs.splice(item.langs.indexOf(pl), 1)[0]
         var id = item._id,
-            name = item.users.join();
+            name = item.users.join(),
+            lang = item.langs.join();
         return {
           id : id,
-          name : name
+          name : name,
+          lang : lang
         };
       });
     }
 
     io.on("connection", function (client) {
-      console.log('asasd');
       client.on("join", function(name) {
-        console.log(name);
         connectedUsers[client.id] = {"name" : name};
         client.emit("update", "You have connected to the server.");
-        io.sockets.emit("update", connectedUsers[client.id].name + " is online.");
-        io.sockets.emit("update-people", connectedUsers);
-        clients.push(client); //populate the clients array with the client object
+      });
+
+      client.on("join_room", function(data){
+        client.join(data.roomId);
+        console.log('ROOMID', data.roomId)
+        io.in(data.roomId).emit('update', data.name + 'connected');
+      });
+
+      client.on("leave_room", function(id){
+        client.leave(room);
+        console.log('LEAVE',id)
+        io.in(id).emit('update', name + 'left');
+      });
+
+      client.on("message", function(data){
+        googleTranslate.translate(data.msg, data.lang, function(err, translation) {
+          MongoClient.connect("mongodb://esperanto:hackyourfuture16@ds023902.mlab.com:23902/esperanto", function(err, db) {
+            if(!err) {
+              var message = {
+                "source_lang": data.pl,
+                "translations": {
+                },
+                "sender": data.sender,
+                "timestamp": new Date().getTime(),
+                "roomId": data.roomId
+              };
+
+              message.translations[data.lang] = translation.translatedText;
+              message.translations[data.pl] = data.msg;
+              db.collection('messages').insert(message, function(err, result) {
+                if(!err){
+                  console.log('yeah')
+                  var _message = {
+                    translations : message.translations,
+                    author: message.sender,
+                    date : dateFormat(new Date(parseInt(message.timestamp)), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                  };
+
+                  io.in(data.roomId).emit('message', _message);
+                }
+              })
+
+            }
+          });
+        });
+
+
       });
 
     });

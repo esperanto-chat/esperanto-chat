@@ -18,17 +18,36 @@ var ChatConnection = (function(){
   }
 
   function bindEvents() {
-
     $('#message').submit(function(){
-      socket.emit('chat message', {msg: $('#m').val(), lang: user.prefLang});
+      socket.emit('message', {
+        msg: $('#m').val(),
+        lang: window.currentRoomLang,
+        pl : window.user.prefLang,
+        roomId: window.currentRoomId,
+        sender: window.user.username
+      });
       $('#m').val('');
       return false;
     });
   }
 
   function bindChatListeners() {
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+    var source   = $("#bubble").html();
+    var bubble = Handlebars.compile(source);
+    
+    socket.on('message', function(msg){
+      msg.text = msg.translations[window.user.prefLang];
+        $('#room').append(bubble(msg));
+        //$('#messages').append($('<li>').text(msg));
+    });
+
+    socket.on('update', function(msg){
+      var _msg = $('<li style="display:none;padding: 3px;background: rgba(0,0,0,.15);border-bottom: 1px solid white;">'+msg+'</li>');
+      $('#notifications').prepend(_msg);
+      _msg.show(500);
+      setTimeout(function () {
+        _msg.hide(500);
+      }, 10000);
     });
 
     socket.on('user_connected', function(usr){
@@ -36,7 +55,12 @@ var ChatConnection = (function(){
     });
   }
 
+  function getConn(){
+    return socket;
+  }
+
   return {
-    init: init
+    init: init,
+    getConn : getConn
   };
 })();
