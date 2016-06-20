@@ -39,7 +39,7 @@ module.exports = function(io) {
               console.log(req.user.pl, req.user.username);
 
               var roomsTranslated = translateRooms(rooms, req.user.username, req.user.pl);
-              res.render('index', {rooms : roomsTranslated, user: req.user});
+              res.render('index_ui', {rooms : roomsTranslated, user: req.user});
           });
         }
       });

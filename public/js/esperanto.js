@@ -29,12 +29,17 @@ $(document).ready(function() {
       window.currentRoomLang = lang;
 
     	$('.active-chat').removeClass('active-chat');
+      room.addClass('.active-chat');
       $.get('/rooms/'+ roomId)
       .done(function(response){
         var roomHtml = $('#room').empty();
         response.forEach(function(msg){
+          if(msg.author == window.user.username){
+            msg.isUser = true;
+          }
           roomHtml.append(bubble(msg));
         });
+        $('.messages').animate({ scrollTop:  $('.messages').height() + 25 }, 'slow');
         ChatConnection.getConn().emit('join_room', {roomId:roomId, name:window.user.username});
         $(this).addClass('active-chat');
       })
@@ -44,5 +49,6 @@ $(document).ready(function() {
     });
 
 	$('.conversation').first().click();
+
 
 });

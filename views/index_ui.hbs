@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Esperanto Chat</title>
+    <link rel="stylesheet" href="css/esperanto/normalize.css">
+    <link rel="stylesheet" href="css/esperanto/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+
+    	<div class="ui">
+		<div class="left-menu">
+      <img src="/assets/LogoMakr.png" alt="" />
+				<ul class="list-friends">
+          {{#each rooms}}
+					<li class="conversation"  data-id="{{id}}" data-usr="{{name}}" data-lang="{{lang}}">
+						<img width="50" height="50" src="/img/usr-{{name}}.jpg"/>
+						<div class="info">
+							<div class="user">{{name}}</div>
+						</div>
+					</li>
+          {{/each}}
+
+				</ul>
+		</div>
+		<div class="chat">
+			<ul class="messages" style="overflow-y:scroll; outline: none; cursor: -webkit-grab;" id="room">
+			</ul>
+			<form id="message" action="" class="write-form">
+				<input id="m" autocomplete="off" placeholder="Type your message" />
+        <input type="image" class="send" value="Send" src="/img/send.png" alt="Submit">
+			</form>
+		</div>
+	</div>
+  <script type="text/javascript">
+    window.user = {
+      'username' : '{{user.username}}',
+      'prefLang': '{{user.pl}}'
+    };
+  </script>
+
+  <script id="bubble" type="text/x-handlebars-template">
+  \{{#if isUser}}
+    <li class="friend-with-a-SVAGina">
+  \{{else}}
+    <li class="i">
+  \{{/if}}
+      <div class="head">
+        <span class="time">\{{date}}</span>
+        <span class="name">\{{author}}</span>
+      </div>
+      <div class="message">
+        <span class="translated-text" style="display: initial">\{{text}}</span>
+        <span class="source-language" style="display: none">\{{source_lang}}</span>
+      </div>
+    </li>
+  </script>
+
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js"></script>
+  <script src="/js/base.js"></script>
+  <script src="/js/esperanto.js"></script>
+
+
+  </body>
+</html>

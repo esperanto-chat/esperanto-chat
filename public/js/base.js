@@ -34,10 +34,14 @@ var ChatConnection = (function(){
   function bindChatListeners() {
     var source   = $("#bubble").html();
     var bubble = Handlebars.compile(source);
-    
+
     socket.on('message', function(msg){
       msg.text = msg.translations[window.user.prefLang];
+      if(msg.author == window.user.username){
+        msg.isUser = true;
+      }
         $('#room').append(bubble(msg));
+        $('.messages').animate({ scrollTop:  $('.messages').height() + 25}, 'slow');
         //$('#messages').append($('<li>').text(msg));
     });
 
