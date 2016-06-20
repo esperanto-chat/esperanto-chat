@@ -60,30 +60,19 @@
 
                   <div class="media-body">
 
-                    <div class="media">
-                      <div class="media-body" >
-                        Donec sit amet ligula enim. Duis vel condimentum massa.
-
-                        Donec sit amet ligula enim. Duis vel condimentum massa.Donec sit amet ligula enim.
-                        Duis vel condimentum massa.
-                        Donec sit amet ligula enim. Duis vel condimentum massa.
-                        <br />
-                        <small class="text-muted">Jhon Rexa | 23rd June at 5:00pm</small>
-                        <hr />
-                      </div>
-                    </div>
+                    <div id="room" class="media"></div>
 
                   </div>
                 </li>
               </ul>
             </div>
             <div class="panel-footer">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter Message" />
+              <form id="message" action="" class="input-group">
+                <input type="text" id="m" class="form-control" placeholder="Enter Message" />
                 <span class="input-group-btn">
                   <button class="btn btn-info" type="button">SEND</button>
                 </span>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -95,7 +84,7 @@
             <div class="panel-body">
               <ul class="media-list">
                 {{#each rooms}}
-                <li class="media conversation">
+                <li class="media conversation" data-id="{{id}}" data-usr="{{name}}">
                   <div class="media-body">
                     <div class="media">
                       <a class="pull-left" href="#">
@@ -116,10 +105,23 @@
       </div>
     </div>
     <script type="text/javascript">
-      window.user = '{{user}}';
+      window.user = {
+        'username' : '{{user.username}}',
+        'prefLang': '{{user.pl}}'
+      };
+    </script>
+
+    <script id="bubble" type="text/x-handlebars-template">
+      <div class="media-body" >
+        \{{text}}
+        <br />
+        <small class="text-muted">\{{author}} | \{{date}}</small>
+        <hr />
+      </div>
     </script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js"></script>
     <script src="/js/base.js"></script>
     <script src="/js/esperanto.js"></script>
   </body>

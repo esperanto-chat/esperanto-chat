@@ -18,6 +18,7 @@ app.io           = io;
 
 var routes = require('./routes/index')(io);
 var login = require('./routes/login');
+var rooms = require('./routes/rooms');
 var users = require('./routes/users');
 
 // view engine setup
@@ -67,6 +68,7 @@ app.use('/', function (req, res, next) {
 
 app.use('/app', routes);
 app.use('/login', login);
+app.use('/rooms', rooms)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
