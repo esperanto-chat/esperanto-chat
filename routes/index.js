@@ -24,7 +24,8 @@ module.exports = function(io) {
     router.get('/', function(req, res, next) {
 
       if(!req.user) {
-        res.redirect('/login');
+        console.log("no user");
+        res.redirect('/signup');
         return;
       }
 
@@ -42,6 +43,14 @@ module.exports = function(io) {
       });
 
     });
+
+    // router.get('/signup', function(req, res, next){
+    //   googleTranslate.getSupportedLanguages('es', function(err, langs){
+    //     res.render('signup', {langs : langs});
+    //     res.redirect('signup');
+    //     return;
+    //   })
+    // });
 
     function translateRooms(rooms, username) {
       return rooms.map((item) => {
