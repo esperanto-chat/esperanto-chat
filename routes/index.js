@@ -25,7 +25,8 @@ module.exports = function(io) {
     router.get('/', function(req, res, next) {
 
       if(!req.user) {
-        res.redirect('/login');
+        console.log("no user");
+        res.redirect('/signup');
         return;
       }
 
@@ -46,8 +47,8 @@ module.exports = function(io) {
 
     function translateRooms(rooms, username, pl) {
       return rooms.map((item) => {
-        item.users.splice(item.users.indexOf(username), 1)[0]
-        item.langs.splice(item.langs.indexOf(pl), 1)[0]
+        item.users.splice(item.users.indexOf(username), 1)[0];
+        item.langs.splice(item.langs.indexOf(pl), 1)[0];
         var id = item._id,
             name = item.users.join(),
             lang = item.langs.join();
@@ -73,7 +74,6 @@ module.exports = function(io) {
 
       client.on("leave_room", function(id){
         client.leave(room);
-        console.log('LEAVE',id)
         io.in(id).emit('update', name + 'left');
       });
 
@@ -113,42 +113,6 @@ module.exports = function(io) {
       });
 
     });
-    /*io.on('connection', function(socket) {
-      console.log('a user connected', socket);
-      client.on("join", function(name){
-           people[client.id] = name;
-           client.emit("update", "You have connected to the server.");
-           socket.sockets.emit("update", name + " has joined the server.")
-           socket.sockets.emit("update-people", people);
-       });
-
-       client.on("send", function(msg){
-           socket.sockets.emit("chat", people[client.id], msg);
-       });
-
-       client.on("disconnect", function(){
-           socket.sockets.emit("update", people[client.id] + " has left the server.");
-           delete people[client.id];
-           socket.sockets.emit("update-people", people);
-       });
-      socket.on('connected', function(usr){
-        connectedUsers.push(usr);
-        io.emit('user_connected', usr);
-      });
-      socket.on('new_message', function(data){
-        console.log('message: ' + data.msg);
-        googleTranslate.translate(data.msg, data.lang || 'es', function(err, translation) {
-          console.log(translation.translatedText);
-
-          io.emit('new_message.' + data.authorId, translation.translatedText)
-        });
-      });
-
-      socket.on('disconnect', function(){
-        connectedUsers.splice(connectedUsers.indexOf(username), 1)[0]
-        console.log('user disconnected');
-      });
-    });*/
 
     return router;
 };

@@ -20,6 +20,7 @@ var routes = require('./routes/index')(io);
 var login = require('./routes/login');
 var rooms = require('./routes/rooms');
 var users = require('./routes/users');
+var signup = require('./routes/signup');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,7 +69,8 @@ app.use(function (req, res, next) {
 
 app.use('/app', routes);
 app.use('/login', login);
-app.use('/rooms', rooms)
+app.use('/rooms', rooms);
+app.use('/signup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
