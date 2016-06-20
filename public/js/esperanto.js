@@ -18,7 +18,7 @@ $(document).ready(function() {
         roomId = room.data('id'),
         lang = room.data('lang');
       if(window.currentRoomId){
-        ChatConnection.getConn().emit('leave_room',roomId);
+        ChatConnection.getConn().emit('leave_room', {roomId:roomId, name:window.user.username});
       }
 
       window.currentRoomId = roomId;

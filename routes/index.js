@@ -36,7 +36,8 @@ module.exports = function(io) {
               users: req.user.username
             }).toArray(
             function(err, rooms) {
-              //console.log(rooms);
+              console.log(req.user.pl, req.user.username);
+
               var roomsTranslated = translateRooms(rooms, req.user.username, req.user.pl);
               res.render('index', {rooms : roomsTranslated, user: req.user});
           });
@@ -48,7 +49,9 @@ module.exports = function(io) {
     function translateRooms(rooms, username, pl) {
       return rooms.map((item) => {
         item.users.splice(item.users.indexOf(username), 1)[0];
+        console.log(pl, item.langs);
         item.langs.splice(item.langs.indexOf(pl), 1)[0];
+        console.log(item.langs.join());
         var id = item._id,
             name = item.users.join(),
             lang = item.langs.join();
@@ -68,13 +71,12 @@ module.exports = function(io) {
 
       client.on("join_room", function(data){
         client.join(data.roomId);
-        console.log('ROOMID', data.roomId)
-        io.in(data.roomId).emit('update', data.name + 'connected');
+        io.in(data.roomId).emit('update', data.name + ' connected');
       });
 
-      client.on("leave_room", function(id){
-        client.leave(room);
-        io.in(id).emit('update', name + 'left');
+      client.on("leave_room", function(data){
+        client.leave(data.roomId);
+        io.in(data.roomId).emit('update', data.name + ' left');
       });
 
       client.on("message", function(data){
@@ -94,7 +96,6 @@ module.exports = function(io) {
               message.translations[data.pl] = data.msg;
               db.collection('messages').insert(message, function(err, result) {
                 if(!err){
-                  console.log('yeah')
                   var _message = {
                     translations : message.translations,
                     author: message.sender,
