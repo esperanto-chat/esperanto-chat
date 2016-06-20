@@ -1,3 +1,4 @@
+
 $('form').submit(function(e){
   e.preventDefault();
   $.post('/signup', { username: $('#username').val(), password: $('#pass').val()})
